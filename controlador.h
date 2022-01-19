@@ -4,9 +4,9 @@
 #include <QObject>
 #include "obrero.h"
 
-#define MATUTINO 1.66
-#define VESPERTINO 1.80
-#define NOCTURNO 2.07
+#define MATUTINO 2.65
+#define VESPERTINO 2.73
+#define NOCTURNO 2.87
 
 #define HORA_EXTRA 0.5
 #define IESS 9.5
