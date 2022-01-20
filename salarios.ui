@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Salarios</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="Resources.qrc">
+    <normaloff>:/Resources/salario.png</normaloff>:/Resources/salario.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
@@ -195,7 +199,7 @@
      <string>&amp;Archivo</string>
     </property>
     <addaction name="actionNuevo"/>
-    <addaction name="actionNuevo_2"/>
+    <addaction name="actionAbrir"/>
     <addaction name="actionGuaradar"/>
     <addaction name="separator"/>
     <addaction name="actionCalcular"/>
@@ -220,7 +224,7 @@
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionNuevo_2">
+  <action name="actionAbrir">
    <property name="text">
     <string>&amp;Abrir</string>
    </property>
@@ -258,6 +262,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

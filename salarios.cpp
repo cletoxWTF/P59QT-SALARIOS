@@ -78,10 +78,9 @@ void Salarios::guardar()
 {
     // ABRIR CUADRO DE DIALOGO PARA SELECCIONAR UBICACION Y NOMBRE DEL ARCHIVO
     QString nombreArchivo = QFileDialog::getSaveFileName(this,
-                                                         "Guardar Datos",
+                                                         "Guardar Archivo",
                                                          QDir::home().absolutePath(),
-                                                         "Archivos de Texto(*.txt)");
-    qDebug() << nombreArchivo;
+                                                         "Archivos de Texto(*.slr)");
 
     // CREAR UN OBJETO QFILE
     QFile archivo(nombreArchivo);
@@ -96,13 +95,51 @@ void Salarios::guardar()
         salida <<ui->outResultado->toPlainText();
 
         // MOSTRAR 5 SEGUNDOS QUE TODO ESTA BIEN
-        ui->statusbar->showMessage("Datos alamacenados en " + nombreArchivo, 5000);
+        ui->statusbar->showMessage("Datos almacenados en " + nombreArchivo, 5000);
     }else{
 
         //MENSAJE DE ERROR SI NO SE PUEDE ABRIR EL ARCHIVO
         QMessageBox::warning(this,
                              "GUARDAR DATOS",
-                             "No se Pudo guardar los datos");
+                             "No se pudo guardar el Archivo");
+    }
+
+    // CERRAR ARCHIVO
+    archivo.close();
+}
+
+void Salarios::abrir()
+{
+    // ABRIR CUADRO DE DIALOGO PARA SELECCIONAR UBICACION Y NOMBRE DEL ARCHIVO
+    QString nombreArchivo = QFileDialog::getOpenFileName(this,
+                                                         "Abrir Archivo",
+                                                         QDir::home().absolutePath(),
+                                                         "Archivos de Texto(*.slr)");
+
+    // CREAR UN OBJETO QFILE
+    QFile archivo(nombreArchivo);
+
+    //ABRIRLO PARA LECTURA
+    if(archivo.open(QFile::ReadOnly)){
+
+        // CREAR UN 'STREAM' DE TEXTO
+        QTextStream entrada(&archivo);
+
+        // LEER EL CONTENIDO DEL ARCHIVO
+        QString datos = entrada.readAll();
+
+        // CARGAR EL CONTENIDO AL ARE DE TEXTO
+        ui->outResultado->clear();
+        ui->outResultado->setPlainText(datos);
+
+        // MOSTRAR 5 SEGUNDOS QUE TODO ESTA BIEN
+        ui->statusbar->showMessage("Datos leidos desde " + nombreArchivo, 5000);
+    }else{
+
+        // MENSAJE DE ERROR SI NO SE PUEDE ABRIR EL ARCHIVO
+        QMessageBox::warning(this,
+                             "ABRIR DATOS",
+                             "No se puede abrir el Archivo");
     }
 
     // CERRAR ARCHIVO
@@ -126,5 +163,11 @@ void Salarios::on_actionNuevo_triggered()
 {
     limpiar();
     ui->outResultado->clear();
+}
+
+
+void Salarios::on_actionAbrir_triggered()
+{
+    abrir();
 }
 
