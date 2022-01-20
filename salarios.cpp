@@ -171,3 +171,16 @@ void Salarios::on_actionAbrir_triggered()
     abrir();
 }
 
+
+void Salarios::on_actionAcerca_de_Salarios_triggered()
+{
+    // CREAR UN OBJETO DE LA VENTANA QUE QUEREMOS INVOCAR
+    Acerca *dialogo = new Acerca(this);
+
+    // ENVIAR PARAMETRO A LA VENTANA
+    dialogo->setVersion(VERSION);
+
+    // MOSTRAR LA VENTANA (DIALOGO)
+    dialogo->exec();
+}
+
