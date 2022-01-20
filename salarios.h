@@ -8,6 +8,7 @@
 
 #include "controlador.h"
 #include "acerca.h"
+#include "obrero.h"
 
 #define VERSION "1.0"
 QT_BEGIN_NAMESPACE
@@ -38,9 +39,15 @@ private slots:
 private:
     Ui::Salarios *ui;
     Controlador *m_controlador;
+    Obrero *m_datos;
+
+    float m_tBruto = 0;
+    float m_tIEES = 0;
+    float m_tNeto = 0;
     void limpiar();
     void calcular();
     void guardar();
     void abrir();
+    bool calculos();
 };
 #endif // SALARIOS_H

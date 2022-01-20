@@ -61,6 +61,7 @@ void Salarios::calcular()
     if(m_controlador->calcularSalario()){
         // MUESTRA LOS RESULTADOS DE LOS CALCULOS DE LOS OBREROS
         ui->outResultado->appendPlainText(m_controlador->obrero()->toString());
+        calculos();
         // LIMPIAR LA INTERFAZ
         limpiar();
 
@@ -146,6 +147,57 @@ void Salarios::abrir()
     archivo.close();
 }
 
+bool Salarios::calculos()
+{
+    // VALIDAR QUE EL OBRERO NO SEA NULO
+    if(m_controlador->m_obrero == nullptr)
+        return false;
+
+    // DETERMINAR EL VALOR HORA
+    double valorHora = 0;
+    switch(m_controlador->m_obrero->jornada()){
+    case TipoJornada::Vespertina:
+        valorHora = VESPERTINO;
+        break;
+    case TipoJornada::Matutina:
+        valorHora = MATUTINO;
+        break;
+    case TipoJornada::Nocturna:
+        valorHora = NOCTURNO;
+        break;
+    default:
+        return false;
+    }
+
+    // CALCULO DE LAS HORAS EXTRA
+    int horas = m_controlador->m_obrero->horas();
+    int horasExtra =0;
+    if(m_controlador->m_obrero->horas()>40){
+        horasExtra = m_controlador->m_obrero->horas() -40;
+        horas = 40;
+    }
+
+    // CALCULO DEL SALARIO
+    double salarioBruto = horas * valorHora + horasExtra * (HORA_EXTRA * valorHora/100);
+    this->m_controlador->setTBruto(this->m_controlador->tBruto()+salarioBruto);
+    ui->outSbruto->setText("$" + QString::number(this->m_controlador->tBruto(),'f',2));
+
+    //CALCULO DEL DESCUENTO
+    double descuento = salarioBruto * IESS/100;
+    this->m_controlador->setTIEES(this->m_controlador->tIEES()+descuento);
+    ui->outIESS->setText("$" + QString::number(this->m_controlador->tIEES(),'f',2));
+
+    // CALCULO DEL SALARIO NETO
+    double salarioNeto = salarioBruto - descuento;
+    this->m_controlador->setTNeto(this->m_controlador->tNeto()+salarioNeto);
+    ui->outSneto->setText("$" + QString::number(this->m_controlador->tNeto(),'f',2));
+
+    // RETORNAR TRUE (TODO SE CALCULO CORRECTAMENTE)
+
+    return true;
+
+}
+
 
 void Salarios::on_actionCalcular_triggered()
 {
@@ -183,4 +235,5 @@ void Salarios::on_actionAcerca_de_Salarios_triggered()
     // MOSTRAR LA VENTANA (DIALOGO)
     dialogo->exec();
 }
+
 

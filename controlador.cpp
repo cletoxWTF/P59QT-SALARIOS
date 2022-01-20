@@ -63,3 +63,33 @@ Obrero *Controlador::obrero() const
 {
     return m_obrero;
 }
+
+void Controlador::setTBruto(float newTBruto)
+{
+    m_tBruto = newTBruto;
+}
+
+void Controlador::setTIEES(float newTIEES)
+{
+    m_tIEES = newTIEES;
+}
+
+void Controlador::setTNeto(float newTNeto)
+{
+    m_tNeto = newTNeto;
+}
+
+float Controlador::tBruto() const
+{
+    return m_tBruto;
+}
+
+float Controlador::tIEES() const
+{
+    return m_tIEES;
+}
+
+float Controlador::tNeto() const
+{
+    return m_tNeto;
+}

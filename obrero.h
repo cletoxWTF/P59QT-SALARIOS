@@ -13,6 +13,12 @@ class Obrero : public QObject
 {
     Q_OBJECT
 public:
+    QString m_nombre;
+    int m_horas;
+    TipoJornada m_jornada;
+    double m_salarioBruto;
+    double m_salarioNeto;
+    double m_descuento;
 
     explicit Obrero(QObject *parent = nullptr);
     Obrero(const QString &nombre, int horas, TipoJornada jornada);
@@ -35,13 +41,14 @@ public:
 signals:
 
 private:
-
+    /*
     QString m_nombre;
     int m_horas;
     TipoJornada m_jornada;
     double m_salarioBruto;
     double m_salarioNeto;
     double m_descuento;
+    */
 
     QString jornada2String();
 
